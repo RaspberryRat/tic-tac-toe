@@ -14,6 +14,9 @@ class Board
       bottom_row: [false, false, false]
     }
   end
+
+  def update_board(marker_placement)
+
 end
 
 class Player
@@ -29,10 +32,12 @@ class Player
     if @@who_turn == 1
       puts "Where would you like to place your \"X\"?...>>"
       x_placement = gets.chomp
+      game1.update_board(x_placement) # likely need to ask in two parts, which row? then which horizontal location
       @@who_turn = 2
     else
       puts "Where would you like to place your \"O\"?...>>"
       o_placement = gets.chomp
+      game1.update_board(o_placement)
       @@who_turn = 1
     end
 
