@@ -3,45 +3,54 @@
 # board will be another class. Draws each time. Classes can write
 # to each spot on board. Board can be represented by array of arrays?
 
+
 class Board
+  $board_state = {
+    top_row: ['_', '_', '_'],
+    middle_row: ['_', '_', '_'],
+    bottom_row: ['_', '_', '_']
+  }
+
   def inital_board
-    3.times do
-      puts "|___|___|___|\n"
-    end
-    board_state = {
-      top_row: [false, false, false],
-      middle_row: [false, false, false],
-      bottom_row: [false, false, false]
-    }
+    #3.times do
+      puts "_#{$board_state[:top_row][0]}_|_#{$board_state[:top_row][1]}_|_#{$board_state[:top_row][2]}_\n"\
+      "_#{$board_state[:middle_row][0]}_|_#{$board_state[:middle_row][1]}_|_#{$board_state[:middle_row][2]}_\n"\
+      "_#{$board_state[:bottom_row][0]}_|_#{$board_state[:bottom_row][1]}_|_#{$board_state[:bottom_row][2]}_\n"
+    #end
   end
 
   def update_board(marker_placement)
-
+  end
 end
 
 class Player
   @@who_turn = 1
   attr_reader :name
-  
+
   def initialize(name)
     @name = name
   end
 
   def player_turn
     puts "It is #{self.name}'s turn..."
+    x_placement = [] # array to hold location of marker and clears it start of each turn
+    o_placement = []
+
     if @@who_turn == 1
-      puts "Where would you like to place your \"X\"?...>>"
-      x_placement = gets.chomp
-      game1.update_board(x_placement) # likely need to ask in two parts, which row? then which horizontal location
-      @@who_turn = 2
+      puts "What row would you like to place your \"X\"? \ntop, middle, bottom>>"
+      x_placement.push(gets.chomp)
+      puts "What column would you like to place your \"X\"?\n left, middle, right>>"
+      x_placement.push(gets.chomp)
+      game1.update_board(x_placement)
+      @@who_turn = 2 #sets class variable to determine player turn
     else
-      puts "Where would you like to place your \"O\"?...>>"
-      o_placement = gets.chomp
+      puts "What row would you like to place your \"O\"? \ntop, middle, bottom>>"
+      o_placement.push(gets.chomp)
+      puts "What column would you like to place your \"O\"?\n left, middle, right>>"
+      o_placement.push(gets.chomp)
       game1.update_board(o_placement)
       @@who_turn = 1
     end
-
-    
   end
 end
 
