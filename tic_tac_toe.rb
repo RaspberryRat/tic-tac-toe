@@ -21,20 +21,29 @@ class Board
 
   def update_board(marker_placement)
     case marker_placement
-      when ["top", "left"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["top", "middle"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["top", "right"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when ["middle", "left"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["middle", "middle"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["middle", "right"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when ["bottom", "left"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["bottom", "middle"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
-      when  ["bottom", "right"] then if $who_turn == 1 then $board_state[:top_row][0] = "X" else $board_state[:top_row][0] = "O"
+    when ["top", "left"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:top_row][0] = "O"
+    when  ["top", "middle"]
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:top_row][1] = "O"
+    when  ["top", "right"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:top_row][2] = "O"
+    when ["middle", "left"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:middle_row][0] = "O"
+    when  ["middle", "middle"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:middle_row][1] = "O"
+    when  ["middle", "right"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:middle_row][2] = "O"
+    when ["bottom", "left"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:bottom_row][0] = "O"
+    when  ["bottom", "middle"] 
+      $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:bottom_row][1] = "O"
+    when  ["bottom", "right"]
+       $who_turn == 1 ? $board_state[:top_row][0] = "X" : $board_state[:bottom_row][2] = "O"
+    end
   end
 end
 
 class Player
-  $who_turn = 1
   attr_reader :name
 
   def initialize(name)
@@ -42,24 +51,26 @@ class Player
   end
 
   def player_turn
-    puts "It is #{self.name}'s turn..."
-    x_placement = [] # array to hold location of marker and clears it start of each turn
+    puts "It is #{name}'s turn..."
+    # array to hold location of marker and clears it start of each turn
+    x_placement = []
     o_placement = []
 
-    if @$who_turn == 1
+    if $who_turn == 1
       puts "What row would you like to place your \"X\"? \ntop, middle, bottom>>"
       x_placement.push(gets.downcase.chomp)
       puts "What column would you like to place your \"X\"?\n left, middle, right>>"
       x_placement.push(gets.downcase.chomp)
-      game1.update_board(x_placement)
-      @$who)_who_turn = 2 #sets class variable to determine player turn
+      return game1.update_board(x_placement)
+      # sets class variable to determine player turn
+      #$who_turn = 2
     else
       puts "What row would you like to place your \"O\"? \ntop, middle, bottom>>"
       o_placement.push(gets.downcase.chomp)
       puts "What column would you like to place your \"O\"?\n left, middle, right>>"
       o_placement.push(gets.downcase.chomp)
-      game1.update_board(o_placement)
-      @$who)_who_turn = 1
+      return game1.update_board(o_placement)
+      #$who_turn = 1
     end
   end
 end
@@ -70,12 +81,25 @@ end
 class PlayerO < Player
 end
 
-game1 = Board.new
-game1.draw_board
+def game_start
+  game_over = 0
+  game1 = Board.new
+  game1.draw_board
+  print "What is player 1's name? >>"
+  player1 = PlayerX.new(gets.chomp.to_s)
+  print "\nWhat is player 2's name? >>"
+  player2 = PlayerO.new(gets.chomp.to_s)
+  $who_turn = 1
+  # begin game loop
+  unless game_over == 1
+    $who_turn == 1 ? player1.player_turn : player2.player_turn
+  end
+  if $who_turn == false then game_over = 1 # fake loop end
+  end
+end
 
-print "What is player 1's name? >>"
-player1 = PlayerX.new(gets.chomp.to_s)
-print "\nWhat is player 2's name? >>"
-player2 = PlayerO.new(gets.chomp.to_s)
+game_start
 
-player1.player_turn
+
+
+
