@@ -87,10 +87,3 @@ def game_loop
 
 end
 game_loop
-
-
-
-# game1 called
-# creates player1 and player2 instance classes
-# draws the board inside game class
-# then starts player turn. Do I want to do this? Or just create a loop here....
