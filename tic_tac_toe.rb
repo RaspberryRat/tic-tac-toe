@@ -1,25 +1,26 @@
-#require "pry-byebug"
+# require "pry-byebug"
 class Game
   attr_reader :board
 
   def initialize
     @player1 = Player.new
     @player2 = Player.new
-    initial_grid
     draw_board
     @turn = PlayerTurn.new
   end
 
+  def game_board
+   [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
+  end
+
   def draw_board
-    3.times do
-      puts "__|__|__\n"
-    end
+    game_board
+    puts "_#{game_board[0][0]}_|_#{game_board[0][1]}_|_#{game_board[0][2]}_\n"\
+    "_#{game_board[1][0]}_|_#{game_board[1][1]}_|_#{game_board[1][2]}_\n"\
+    "_#{game_board[2][0]}_|_#{game_board[2][1]}_|_#{game_board[2][2]}_\n"\
   end
 
-  def initial_grid
-    game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
-  end
-
+ 
   def update_grid
     puts "updated grid"
   end
