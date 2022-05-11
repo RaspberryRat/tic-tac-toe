@@ -1,6 +1,6 @@
-# require "pry-byebug"
+require "pry-byebug"
 class Game
-  attr_reader :board
+  attr_reader :board, :player1, :player2
 
   def initialize
     @player1 = Player.new
@@ -51,17 +51,22 @@ class Player < Game
     puts "#{player_name_count}, what is your name?>>"
     @name = gets.chomp
     puts "Welcome #{name}"
+    @name = name
   end
 end
 
 class PlayerTurn < Player
   @@player_turn = 1
+  attr_reader :board, :player1, :player2
+
   def initialize
+    binding.pry
     turn
   end
 
   def turn
     marker_placement = []
+    binding.pry
     puts "It is #{name}'s turn..."
     if @@player_turn == 1
       puts "What row would you like to place your \"X\"? top, middle, bottom?>>"
@@ -86,3 +91,10 @@ class PlayerTurn < Player
 end
 
 game1 = Game.new
+
+# game1 called
+# creates player1 and player2 instance classes
+# draws the board inside game class
+# then starts player turn. Do I want to do this? Or just create a loop here....
+
+
