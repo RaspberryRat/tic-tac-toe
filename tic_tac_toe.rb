@@ -1,23 +1,45 @@
 require "pry-byebug"
 class Game
   attr_reader :board, :player1, :player2
-
+  @@player_turn = 1
   def initialize
     @player1 = Player.new
     @player2 = Player.new
     draw_board
-    @turn = PlayerTurn.new
   end
 
   @@game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
 
   def draw_board
-    @@game_board
     puts "_#{@@game_board[0][0]}_|_#{@@game_board[0][1]}_|_#{@@game_board[0][2]}_\n"\
     "_#{@@game_board[1][0]}_|_#{@@game_board[1][1]}_|_#{@@game_board[1][2]}_\n"\
     "_#{@@game_board[2][0]}_|_#{@@game_board[2][1]}_|_#{@@game_board[2][2]}_\n"\
   end
- 
+
+  def turn
+    marker_placement = []
+    puts "It is #{name}'s turn..."
+    if @@player_turn == 1
+      puts "What row would you like to place your \"X\"? top, middle, bottom?>>"
+      marker_placement.push(gets.chomp.downcase)
+      puts "What column would you like to place your \"X\"? left, middle, right?>>"
+      marker_placement.push(gets.chomp.downcase)
+      marker_placement.push("X")
+      p marker_placement
+      @@player_turn = 2
+      convert_grid(marker_placement)
+    elsif @@player_turn == 2
+      puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
+      marker_placement.push(gets.chomp.downcase)
+      puts "What column would you like to place your \"O\"? left, middle, right?>>"
+      marker_placement.push(gets.chomp.downcase)
+      @@player_turn = 2
+      marker_placement.push("O")
+      convert_grid(marker_placement)
+    else
+      "ERROR ERROR"
+    end
+  end
   def convert_grid(marker_placement)
     puts "updated grid"
     case marker_placement[0]
@@ -37,12 +59,12 @@ class Game
   def update_grid(marker_placement)
     @@game_board[marker_placement[0]][marker_placement[1]] = marker_placement[2]
     p @@game_board
+    draw_board
   end
 end
 
 class Player < Game
   attr_reader :name
-
   @@player_count = 0
 
   def initialize
@@ -55,46 +77,20 @@ class Player < Game
   end
 end
 
-class PlayerTurn < Player
-  @@player_turn = 1
-  attr_reader :board, :player1, :player2
+def game_loop
+  winner = 0
+  game1 = Game.new
+  puts game1
+  puts game1.player1.name
+  puts game1.player2.name
+  puts game1.player1.turn
 
-  def initialize
-    binding.pry
-    turn
-  end
-
-  def turn
-    marker_placement = []
-    binding.pry
-    puts "It is #{name}'s turn..."
-    if @@player_turn == 1
-      puts "What row would you like to place your \"X\"? top, middle, bottom?>>"
-      marker_placement.push(gets.chomp)
-      puts "What column would you like to place your \"X\"? left, middle, right?>>"
-      marker_placement.push(gets.chomp)
-      marker_placement.push("X")
-      p marker_placement
-      convert_grid(marker_placement)
-      @@who_turn = 2
-    elsif @@player_turn == 2
-      puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
-      marker_placement.push(gets.chomp)
-      puts "What column would you like to place your \"O\"? left, middle, right?>>"
-      marker_placement.push(gets.chomp)
-      marker_placement.push("O")
-      @@who_turn = 1
-    else
-      "ERROR ERROR"
-    end
-  end
 end
+game_loop
 
-game1 = Game.new
+
 
 # game1 called
 # creates player1 and player2 instance classes
 # draws the board inside game class
 # then starts player turn. Do I want to do this? Or just create a loop here....
-
-
