@@ -9,18 +9,16 @@ class Game
     @turn = PlayerTurn.new
   end
 
-  def game_board
-   [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
-  end
+  @@game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
 
   def draw_board
-    game_board
-    puts "_#{game_board[0][0]}_|_#{game_board[0][1]}_|_#{game_board[0][2]}_\n"\
-    "_#{game_board[1][0]}_|_#{game_board[1][1]}_|_#{game_board[1][2]}_\n"\
-    "_#{game_board[2][0]}_|_#{game_board[2][1]}_|_#{game_board[2][2]}_\n"\
+    @@game_board
+    puts "_#{@@game_board[0][0]}_|_#{@@game_board[0][1]}_|_#{@@game_board[0][2]}_\n"\
+    "_#{@@game_board[1][0]}_|_#{@@game_board[1][1]}_|_#{@@game_board[1][2]}_\n"\
+    "_#{@@game_board[2][0]}_|_#{@@game_board[2][1]}_|_#{@@game_board[2][2]}_\n"\
   end
  
-  def update_grid(marker_placement)
+  def convert_grid(marker_placement)
     puts "updated grid"
     case marker_placement[0]
     when "top" then marker_placement[0] = 0
@@ -33,10 +31,12 @@ class Game
     when "middle" then marker_placement[1] = 1
     when "right" then marker_placement[1] = 2
     end
+    update_grid(marker_placement)
+  end
 
-    p marker_placement
-    puts marker_placement[0].class
-    puts marker_placement[1].class
+  def update_grid(marker_placement)
+    @@game_board[marker_placement[0]][marker_placement[1]] = marker_placement[2]
+    p @@game_board
   end
 end
 
@@ -68,14 +68,16 @@ class PlayerTurn < Player
       marker_placement.push(gets.chomp)
       puts "What column would you like to place your \"X\"? left, middle, right?>>"
       marker_placement.push(gets.chomp)
+      marker_placement.push("X")
       p marker_placement
-      update_grid(marker_placement)
+      convert_grid(marker_placement)
       @@who_turn = 2
     elsif @@player_turn == 2
       puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
       marker_placement.push(gets.chomp)
       puts "What column would you like to place your \"O\"? left, middle, right?>>"
       marker_placement.push(gets.chomp)
+      marker_placement.push("O")
       @@who_turn = 1
     else
       "ERROR ERROR"
