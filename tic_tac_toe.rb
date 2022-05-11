@@ -19,10 +19,24 @@ class Game
     "_#{game_board[1][0]}_|_#{game_board[1][1]}_|_#{game_board[1][2]}_\n"\
     "_#{game_board[2][0]}_|_#{game_board[2][1]}_|_#{game_board[2][2]}_\n"\
   end
-
  
-  def update_grid
+  def update_grid(marker_placement)
     puts "updated grid"
+    case marker_placement[0]
+    when "top" then marker_placement[0] = 0
+    when "middle" then marker_placement[0] = 1
+    when "bottom" then marker_placement[0] = 2
+    end
+
+    case marker_placement[1]
+    when "left" then marker_placement[1] = 0
+    when "middle" then marker_placement[1] = 1
+    when "right" then marker_placement[1] = 2
+    end
+
+    p marker_placement
+    puts marker_placement[0].class
+    puts marker_placement[1].class
   end
 end
 
@@ -55,7 +69,7 @@ class PlayerTurn < Player
       puts "What column would you like to place your \"X\"? left, middle, right?>>"
       marker_placement.push(gets.chomp)
       p marker_placement
-      update_grid
+      update_grid(marker_placement)
       @@who_turn = 2
     elsif @@player_turn == 2
       puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
