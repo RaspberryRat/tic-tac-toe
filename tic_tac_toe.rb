@@ -162,9 +162,11 @@ def game_loop
   if winner == 1 
     game_over = player_turn == 1 ? "#{game1.player1.name} is the winner! Congratulations." : "#{game1.player2.name} is the winner! Congratulations."
     puts "\n\n#{game_over}\n\n"
+    puts "Do you want to play again? (yes/no)"
+    play_game = gets.chomp
   elsif tie_game == 1
     puts "Game is a tie, no one wins...\n\nDo you want to play again? (yes/no)"
-    play_game gets.chomp
+    play_game = gets.chomp
   end
 end
 
