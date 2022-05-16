@@ -56,7 +56,7 @@ class Game
     when "middle" then marker_placement[0] = 1
     when "bottom" then marker_placement[0] = 2
     else
-      puts "\n\nError, you have mistyped your choice, please choose again.\n"
+      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
       return turn
     end
 
@@ -65,7 +65,7 @@ class Game
     when "middle" then marker_placement[1] = 1
     when "right" then marker_placement[1] = 2
     else
-      puts "\n\nError, you have mistyped your choice, please choose again.\n"
+      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
       return turn
     end
     marker_placement
@@ -83,7 +83,9 @@ class Game
     @@game_board[converted_marker[0]][converted_marker[1]] == '_' ? true : false
   end
 
-    
+  def winner?
+    puts "No winner yet\n"
+  end
 end
 
 class Player < Game
@@ -112,9 +114,11 @@ def game_loop
   until winner == 1 do 
     if player_turn == 1
       puts game1.player1.turn
+      game1.winner?
       player_turn = 2
     elsif player_turn == 2
       puts game1.player2.turn
+      game1.winner?
       player_turn = 1
     else
       puts "ERROR!"
