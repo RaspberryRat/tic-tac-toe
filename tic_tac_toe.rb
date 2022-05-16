@@ -79,11 +79,24 @@ end
 
 def game_loop
   winner = 0
+  player_turn = 1
   game1 = Game.new
   puts game1
   puts game1.player1.name
   puts game1.player2.name
-  puts game1.player1.turn
+  
 
+  until winner == 1 do 
+    if player_turn == 1
+      puts game1.player1.turn
+      player_turn = 2
+    elsif player_turn == 2
+      puts game1.player2.turn
+      player_turn = 1
+    else
+      puts "ERROR!"
+    end
+  end
 end
+
 game_loop
