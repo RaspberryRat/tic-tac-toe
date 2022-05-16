@@ -29,7 +29,8 @@ class Game
         @@player_turn = 2
         update_grid(marker_placement)
       else
-        puts "That is not a legal move, please choose a different location:"
+        puts "\n\nThat is not a legal move, please choose a different location:\n\n"
+        draw_board
         turn
       end
     elsif @@player_turn == 2
@@ -37,27 +38,28 @@ class Game
       marker_placement.push(gets.chomp.downcase)
       puts "What column would you like to place your \"O\"? left, middle, right?>>"
       marker_placement.push(gets.chomp.downcase)
+
       if legal_move?(marker_placement)
         @@player_turn = 1
         marker_placement.push("O")
         update_grid(marker_placement)
       else
-        puts "That is not a legal move, please choose a different location:"
+        puts "\n\nThat is not a legal move, please choose a different location:\n\n"
+        draw_board
         turn
       end
     else
       "ERROR ERROR"
     end
   end
+
   def convert_grid(marker_placement)
-    puts "updated grid"
     case marker_placement[0]
     when "top" then marker_placement[0] = 0
     when "middle" then marker_placement[0] = 1
     when "bottom" then marker_placement[0] = 2
     else
-      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
-      return turn
+      return false
     end
 
     case marker_placement[1]
@@ -65,22 +67,24 @@ class Game
     when "middle" then marker_placement[1] = 1
     when "right" then marker_placement[1] = 2
     else
-      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
-      return turn
+      return false
     end
     marker_placement
   end
 
   def update_grid(marker_placement)
     @@game_board[marker_placement[0]][marker_placement[1]] = marker_placement[2]
-    p @@game_board
     draw_board
   end
 
   def legal_move?(marker_placement)
-    converted_marker = convert_grid(marker_placement)
-    puts "This is from legal_move?: #{converted_marker}"
-    @@game_board[converted_marker[0]][converted_marker[1]] == '_' ? true : false
+    if convert_grid(marker_placement) == false
+      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
+    elsif @@game_board[marker_placement[0]][marker_placement[1]] == '_'
+      true
+    else
+      false
+    end
   end
 
   def winner?
@@ -127,14 +131,17 @@ def game_loop
   puts game1
   puts game1.player1.name
   puts game1.player2.name
-  
 
-  until winner == 1 do 
-    if player_turn == 1
-      puts game1.player1.turn
+  until winner == 1
+    case
+    when player_turn == 1
+
+      game1.player1.turn
+
       game1.winner? == true ? winner = 1 : player_turn = 2
-    elsif player_turn == 2
-      puts game1.player2.turn
+    when player_turn == 2
+      game1.player2.turn
+
       game1.winner? == true ? winner = 1 : player_turn = 1
     else
       puts "ERROR!"
@@ -143,8 +150,8 @@ def game_loop
 
   if winner == 1
     game_over = player_turn == 1 ? "#{game1.player1.name} is the winner! Congratulations." : "#{game1.player2.name} is the winner! Congratulations."
-    puts game_over
-  end 
+    puts "\n\#{ngame_over}\n\n"
+  end
 end
 
 game_loop
