@@ -84,7 +84,25 @@ class Game
   end
 
   def winner?
-    puts "No winner yet\n"
+    case
+    when @@game_board[0][0] == 'X' && @@game_board[1][0] == 'X' && @@game_board[2][0] == 'X' then true
+    when @@game_board[0][1] == 'X' && @@game_board[1][1] == 'X' && @@game_board[2][1] == 'X' then true
+    when @@game_board[0][2] == 'X' && @@game_board[1][2] == 'X' && @@game_board[2][2] == 'X' then true
+    when @@game_board[0][0] == 'X' && @@game_board[0][1] == 'X' && @@game_board[0][2] == 'X' then true
+    when @@game_board[1][0] == 'X' && @@game_board[1][1] == 'X' && @@game_board[1][2] == 'X' then true
+    when @@game_board[2][0] == 'X' && @@game_board[2][1] == 'X' && @@game_board[2][2] == 'X' then true
+    when @@game_board[0][0] == 'X' && @@game_board[1][1] == 'X' && @@game_board[2][2] == 'X' then true
+    when @@game_board[0][2] == 'X' && @@game_board[1][1] == 'X' && @@game_board[2][0] == 'X' then true
+    when @@game_board[0][0] == 'O' && @@game_board[1][0] == 'O' && @@game_board[2][0] == 'O' then true
+    when @@game_board[0][1] == 'O' && @@game_board[1][1] == 'O' && @@game_board[2][1] == 'O' then true
+    when @@game_board[0][2] == 'O' && @@game_board[1][2] == 'O' && @@game_board[2][2] == 'O' then true
+    when @@game_board[0][0] == 'O' && @@game_board[0][1] == 'O' && @@game_board[0][2] == 'O' then true
+    when @@game_board[1][0] == 'O' && @@game_board[1][1] == 'O' && @@game_board[1][2] == 'O' then true
+    when @@game_board[2][0] == 'O' && @@game_board[2][1] == 'O' && @@game_board[2][2] == 'O' then true
+    when @@game_board[0][0] == 'O' && @@game_board[1][1] == 'O' && @@game_board[2][2] == 'O' then true
+    when @@game_board[0][2] == 'O' && @@game_board[1][1] == 'O' && @@game_board[2][0] == 'O' then true
+    else puts "No winner yet\n"
+    end
   end
 end
 
@@ -114,16 +132,19 @@ def game_loop
   until winner == 1 do 
     if player_turn == 1
       puts game1.player1.turn
-      game1.winner?
-      player_turn = 2
+      game1.winner? == true ? winner = 1 : player_turn = 2
     elsif player_turn == 2
       puts game1.player2.turn
-      game1.winner?
-      player_turn = 1
+      game1.winner? == true ? winner = 1 : player_turn = 1
     else
       puts "ERROR!"
     end
   end
+
+  if winner == 1
+    game_over = player_turn == 1 ? "#{game1.player1.name} is the winner! Congratulations." : "#{game1.player2.name} is the winner! Congratulations."
+    puts game_over
+  end 
 end
 
 game_loop
