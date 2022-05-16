@@ -2,10 +2,15 @@ require "pry-byebug"
 class Game
   attr_reader :board, :player1, :player2
   @@player_turn = 1
+  @@game_turn = 0
   def initialize
     @player1 = Player.new
     @player2 = Player.new
     draw_board
+  end
+
+  def self.game_turns
+    @@game_turn
   end
 
   @@game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
@@ -18,7 +23,7 @@ class Game
 
   def turn
     marker_placement = []
-    puts "It is #{name}'s turn..."
+    puts "\nIt is #{name}'s turn...\n"
     if @@player_turn == 1
       puts "What row would you like to place your \"X\"? top, middle, bottom?>>"
       marker_placement.push(gets.chomp.downcase)
@@ -29,7 +34,7 @@ class Game
         @@player_turn = 2
         update_grid(marker_placement)
       else
-        puts "\n\nThat is not a legal move, please choose a different location:\n\n"
+        puts "***\n\nThat is not a legal move, please choose a different location:\n\n***"
         draw_board
         turn
       end
@@ -40,8 +45,8 @@ class Game
       marker_placement.push(gets.chomp.downcase)
 
       if legal_move?(marker_placement)
-        @@player_turn = 1
         marker_placement.push("O")
+        @@player_turn = 1
         update_grid(marker_placement)
       else
         puts "\n\nThat is not a legal move, please choose a different location:\n\n"
@@ -74,6 +79,7 @@ class Game
 
   def update_grid(marker_placement)
     @@game_board[marker_placement[0]][marker_placement[1]] = marker_placement[2]
+    @@game_turn += 1
     draw_board
   end
 
@@ -105,8 +111,13 @@ class Game
     when @@game_board[2][0] == 'O' && @@game_board[2][1] == 'O' && @@game_board[2][2] == 'O' then true
     when @@game_board[0][0] == 'O' && @@game_board[1][1] == 'O' && @@game_board[2][2] == 'O' then true
     when @@game_board[0][2] == 'O' && @@game_board[1][1] == 'O' && @@game_board[2][0] == 'O' then true
-    else puts "No winner yet\n"
+    else
+      puts "\nNo winner yet\n"
     end
+  end
+
+  def tie_game?
+    @@game_turn >= 9
   end
 end
 
@@ -126,31 +137,34 @@ end
 
 def game_loop
   winner = 0
+  tie_game = 0
   player_turn = 1
   game1 = Game.new
   puts game1
   puts game1.player1.name
   puts game1.player2.name
 
-  until winner == 1
+  until winner == 1 || tie_game == 1
     case
     when player_turn == 1
-
       game1.player1.turn
-
       game1.winner? == true ? winner = 1 : player_turn = 2
+      game1.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
     when player_turn == 2
       game1.player2.turn
-
       game1.winner? == true ? winner = 1 : player_turn = 1
+      game1.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
     else
       puts "ERROR!"
     end
   end
 
-  if winner == 1
+  if winner == 1 
     game_over = player_turn == 1 ? "#{game1.player1.name} is the winner! Congratulations." : "#{game1.player2.name} is the winner! Congratulations."
-    puts "\n\#{ngame_over}\n\n"
+    puts "\n\n#{game_over}\n\n"
+  elsif tie_game == 1
+    puts "Game is a tie, no one wins...\n\nDo you want to play again? (yes/no)"
+    play_game gets.chomp
   end
 end
 
