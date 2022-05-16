@@ -24,18 +24,29 @@ class Game
       marker_placement.push(gets.chomp.downcase)
       puts "What column would you like to place your \"X\"? left, middle, right?>>"
       marker_placement.push(gets.chomp.downcase)
-      marker_placement.push("X")
-      p marker_placement
-      @@player_turn = 2
-      convert_grid(marker_placement)
+      if legal_move?(marker_placement)
+        marker_placement.push("X")
+        @@player_turn = 2
+        converted_marker = convert_grid(marker_placement)
+        update_grid(converted_marker)
+      else
+        puts "That is not a legal move, please choose a different location:"
+        turn
+      end
     elsif @@player_turn == 2
       puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
       marker_placement.push(gets.chomp.downcase)
       puts "What column would you like to place your \"O\"? left, middle, right?>>"
       marker_placement.push(gets.chomp.downcase)
-      @@player_turn = 2
-      marker_placement.push("O")
-      convert_grid(marker_placement)
+      if legal_move?(marker_placement)
+        @@player_turn = 1
+        marker_placement.push("O")
+        converted_marker = convert_grid(marker_placement)
+        update_grid(converted_marker)
+      else
+        puts "That is not a legal move, please choose a different location:"
+        turn
+      end
     else
       "ERROR ERROR"
     end
@@ -53,7 +64,7 @@ class Game
     when "middle" then marker_placement[1] = 1
     when "right" then marker_placement[1] = 2
     end
-    update_grid(marker_placement)
+    marker_placement
   end
 
   def update_grid(marker_placement)
@@ -61,6 +72,14 @@ class Game
     p @@game_board
     draw_board
   end
+
+  def legal_move?(marker_placement)
+    converted_marker = convert_grid(marker_placement)
+    puts "This is from legal_move?: #{converted_marker}"
+    @@game_board[converted_marker[0]][converted_marker[1]] == '_' ? true : false
+  end
+
+    
 end
 
 class Player < Game
