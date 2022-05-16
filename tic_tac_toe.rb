@@ -27,8 +27,7 @@ class Game
       if legal_move?(marker_placement)
         marker_placement.push("X")
         @@player_turn = 2
-        converted_marker = convert_grid(marker_placement)
-        update_grid(converted_marker)
+        update_grid(marker_placement)
       else
         puts "That is not a legal move, please choose a different location:"
         turn
@@ -41,8 +40,7 @@ class Game
       if legal_move?(marker_placement)
         @@player_turn = 1
         marker_placement.push("O")
-        converted_marker = convert_grid(marker_placement)
-        update_grid(converted_marker)
+        update_grid(marker_placement)
       else
         puts "That is not a legal move, please choose a different location:"
         turn
@@ -57,12 +55,18 @@ class Game
     when "top" then marker_placement[0] = 0
     when "middle" then marker_placement[0] = 1
     when "bottom" then marker_placement[0] = 2
+    else
+      puts "\n\nError, you have mistyped your choice, please choose again.\n"
+      return turn
     end
 
     case marker_placement[1]
     when "left" then marker_placement[1] = 0
     when "middle" then marker_placement[1] = 1
     when "right" then marker_placement[1] = 2
+    else
+      puts "\n\nError, you have mistyped your choice, please choose again.\n"
+      return turn
     end
     marker_placement
   end
