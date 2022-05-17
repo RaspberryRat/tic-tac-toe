@@ -174,7 +174,7 @@ def new_game
   puts "Hello, would you like to play a new game of tic-tac-toe? (yes/no)?"
   answer = gets.chomp
 
-  unless answer == "yes" || answer == "no"
+  until ['yes','no'].include?(answer) do
     puts "Would you like to play a new game of tic-tac-toe? (yes/no)?"
     answer = gets.chomp
   end
