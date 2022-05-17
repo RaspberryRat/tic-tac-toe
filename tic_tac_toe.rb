@@ -13,9 +13,9 @@ class Game
     puts "\nIt is #{name}'s turn...\n"
     if @@player_turn == 1
       puts "What row would you like to place your \"X\"? top, middle, bottom?>>"
-      marker_placement.push(gets.chomp.downcase)
+      marker_placement.push(gets.chomp.downcase.strip) # puts user input in downcase and removes trailing whitespace
       puts "What column would you like to place your \"X\"? left, middle, right?>>"
-      marker_placement.push(gets.chomp.downcase)
+      marker_placement.push(gets.chomp.downcase.strip)
       if legal_move?(marker_placement) # checks if space is empty and also checks if there is a typo
         marker_placement.push("X")
         @@player_turn = 2
@@ -27,9 +27,9 @@ class Game
       end
     elsif @@player_turn == 2
       puts "What row would you like to place your \"O\"? top, middle, bottom?>>"
-      marker_placement.push(gets.chomp.downcase)
+      marker_placement.push(gets.chomp.downcase.strip)
       puts "What column would you like to place your \"O\"? left, middle, right?>>"
-      marker_placement.push(gets.chomp.downcase)
+      marker_placement.push(gets.chomp.downcase.strip)
       if legal_move?(marker_placement)
         marker_placement.push("O")
         @@player_turn = 1
