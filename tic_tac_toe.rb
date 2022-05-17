@@ -135,39 +135,54 @@ class Player < Game
   end
 end
 
-def game_loop
+def game_loop(game_number)
   winner = 0
   tie_game = 0
   player_turn = 1
-  game1 = Game.new
-  puts game1
-  puts game1.player1.name
-  puts game1.player2.name
+  game_number = "game" + game_number 
+  game_number = Game.new
+  puts game_number
+  puts game_number.player1.name
+  puts game_number.player2.name
 
   until winner == 1 || tie_game == 1
     case
     when player_turn == 1
-      game1.player1.turn
-      game1.winner? == true ? winner = 1 : player_turn = 2
-      game1.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
+      game_number.player1.turn
+      game_number.winner? == true ? winner = 1 : player_turn = 2
+      game_number.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
     when player_turn == 2
-      game1.player2.turn
-      game1.winner? == true ? winner = 1 : player_turn = 1
-      game1.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
+      game_number.player2.turn
+      game_number.winner? == true ? winner = 1 : player_turn = 1
+      game_number.tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
     else
       puts "ERROR!"
     end
   end
 
-  if winner == 1 
-    game_over = player_turn == 1 ? "#{game1.player1.name} is the winner! Congratulations." : "#{game1.player2.name} is the winner! Congratulations."
+  if winner == 1
+    game_over = player_turn == 1 ? "#{game_number.player1.name} is the winner! Congratulations." : "#{game_number.player2.name} is the winner! Congratulations."
     puts "\n\n#{game_over}\n\n"
-    puts "Do you want to play again? (yes/no)"
-    play_game = gets.chomp
+    new_game
   elsif tie_game == 1
-    puts "Game is a tie, no one wins...\n\nDo you want to play again? (yes/no)"
-    play_game = gets.chomp
+    new_game
   end
 end
 
-game_loop
+def new_game
+  new_game_counter = 1
+  puts "Hello, would you like to play a new game of tic-tac-toe? (yes/no)?"
+  answer = gets.chomp
+
+  unless answer == "yes" || answer == "no"
+    puts "Would you like to play a new game of tic-tac-toe? (yes/no)?"
+    answer = gets.chomp
+  end
+
+  if answer == "yes"
+    game_loop(new_game_counter.to_s)
+    new_game_counter += 1
+  end
+end
+
+new_game
