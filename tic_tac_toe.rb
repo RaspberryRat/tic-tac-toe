@@ -8,18 +8,6 @@ class Game
     draw_board
   end
 
-  def clear_board
-    @@game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
-    @@game_turn = 0
-    @@player_turn = 1
-  end
-
-  def draw_board
-    puts "_#{@@game_board[0][0]}_|_#{@@game_board[0][1]}_|_#{@@game_board[0][2]}_\n"\
-    "_#{@@game_board[1][0]}_|_#{@@game_board[1][1]}_|_#{@@game_board[1][2]}_\n"\
-    "_#{@@game_board[2][0]}_|_#{@@game_board[2][1]}_|_#{@@game_board[2][2]}_\n"\
-  end
-
   def turn
     marker_placement = []
     puts "\nIt is #{name}'s turn...\n"
@@ -56,6 +44,20 @@ class Game
     end
   end
 
+  private
+
+  def clear_board
+    @@game_board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
+    @@game_turn = 0
+    @@player_turn = 1
+  end
+
+  def draw_board
+    puts "_#{@@game_board[0][0]}_|_#{@@game_board[0][1]}_|_#{@@game_board[0][2]}_\n"\
+    "_#{@@game_board[1][0]}_|_#{@@game_board[1][1]}_|_#{@@game_board[1][2]}_\n"\
+    "_#{@@game_board[2][0]}_|_#{@@game_board[2][1]}_|_#{@@game_board[2][2]}_\n"\
+  end
+
   def convert_grid(marker_placement)
     case marker_placement[0]
     when "top" then marker_placement[0] = 0
@@ -90,6 +92,8 @@ class Game
       false
     end
   end
+
+  public
 
   def winner?
     case
