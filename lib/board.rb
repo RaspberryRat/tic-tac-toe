@@ -1,7 +1,6 @@
 class Board
   attr_reader :game, :board
-  def initialize(game)
-    @game = game
+  def initialize
     @board = nil
   end
 

@@ -4,8 +4,6 @@ describe Game do
   subject(:game) { described_class.new }
 
   before do
-    game.instance_variable_set(:@player1, instance_double(Player(self)))
-    game.instance_variable_set(:@player2, instance_double(Player(self)))
     game.instance_variable_set(:@game_board, instance_double(Board))
   end
 

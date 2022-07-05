@@ -6,7 +6,7 @@ class Game
     @player1 = nil
     @player2 = nil
     @player_turn = 1
-    @game_board = Board.new(self)
+    @game_board = Board.new
     @game_turn = 0
     @game_board.clear_board
     @game_board.draw_board
