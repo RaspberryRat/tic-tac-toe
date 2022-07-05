@@ -6,8 +6,4 @@ class Player < Game
     @name = name
     puts "Welcome #{name}"
   end
-
-  def self.reset_player
-    @@player_count = 0
-  end
 end

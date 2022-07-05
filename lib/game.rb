@@ -64,31 +64,29 @@ class Game
 
   def tie_game?
     @game_turn >= 9
-  end 
+  end
 
   def game_loop
     winner = 0
     tie_game = 0
-    player_turn = 1
-    create_players if @player1 == nil
+    create_players if @player1.nil? || @player2.nil?
 
     puts player1.name
     puts player2.name
 
     until winner == 1 || tie_game == 1
       case
-      when player_turn == 1
+      when @player_turn == 1
         turn
         @game_board.winner? == true ? winner = 1 : player_turn = 2
         tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
-      when player_turn == 2
+      when @player_turn == 2
         turn
         @game_board.winner? == true ? winner = 1 : player_turn = 1
         tie_game? == true && winner == 0 ? tie_game = 1 : tie_game = 0
       else
         puts "ERROR!"
       end
-      Player.reset_player
     end
     return game_over if winner == 1
 

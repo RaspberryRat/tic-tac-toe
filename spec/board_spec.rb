@@ -176,6 +176,19 @@ describe Board do
       end
     end
   end
+  describe '#convert_grid' do
+    context 'when text string is received convert to array' do
+      it 'converts top middle to [0, 1]' do
+        expect(board.convert_grid(['top', 'middle'])).to eq([0, 1])
+      end
+      it 'converts middle middle top [1, 1]' do
+        expect(board.convert_grid(['middle', 'middle'])).to eq([1, 1])
+      end
+      it 'converts bottom right to [2, 2]' do
+        expect(board.convert_grid(['bottom', 'right'])).to eq([2, 2])
+      end
+    end
+  end
 
 
 
