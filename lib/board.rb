@@ -61,4 +61,14 @@ class Board
       puts "\nNo winner yet\n"
     end
   end
+
+  def legal_move?(marker_placement) # checks if space is a legal move. Also feeds into convert grid that checks for a typo
+    if convert_grid(marker_placement) == false
+      puts '\n\nError, you have mistyped your choice, please choose again.\n\n'
+    elsif @board[marker_placement[0]][marker_placement[1]] == '_'
+      true
+    else
+      false
+    end
+  end
 end

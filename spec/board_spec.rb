@@ -188,10 +188,44 @@ describe Board do
         expect(board.convert_grid(['bottom', 'right'])).to eq([2, 2])
       end
     end
+    context 'when invalid entry is received' do
+      it 'returns false with multiple invalid entry' do
+        expect(board.convert_grid(['1', '23'])).to be false
+      end
+      it 'returns false with one valid and one invalid entry' do
+        expect(board.convert_grid(['top', 'not_valid'])).to be false
+      end
+      it 'returns false with one invalid entry then one valid entry' do
+        expect(board.convert_grid(['not_valid', 'middle'])).to be false
+      end
+    end
   end
+  describe '#legal_move?' do
+    context 'when a space is occupied' do
+      before do
+        marker_placement = ([0, 0])
+        allow(board.legal_move?(marker_placement)).to receive(:convert_grid).and_return(false)
+      end
+      it 'returns error message for illegal move' do
+        expect(board).to receive(:puts).with('\n\nError, you have mistyped your choice, please choose again.\n\n')
+        board.legal_move?([0,0])
+      end
+    end
+    context 'when a space is empty' do
+      before do
+        marker_placement = ([0, 0])
+        # allow(board.legal_move?(marker_placement)).to receive(:convert_grid).and_return(true)
+        board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
+        # allow(board.legal_move?(marker_placement)).to receive(:@board).and_return('_')
+        board.board[0][0] = '_'
+      end
+      it 'returns true for a legal move' do
+        board.board[0][0] = '_'
+        expect(board.legal_move?([0,0])).to be true
+        board.legal_move?([0,0])
 
 
-
-    
-
+      end
+    end
+  end
 end

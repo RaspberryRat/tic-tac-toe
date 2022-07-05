@@ -21,7 +21,7 @@ class Game
       marker_placement.push(gets.chomp.downcase.strip) # puts user input in downcase and removes trailing whitespace
       puts "What column would you like to place your \"X\"? left, middle, right?>>"
       marker_placement.push(gets.chomp.downcase.strip)
-      if legal_move?(marker_placement) # checks if space is empty and also checks if there is a typo
+      if @game_board.legal_move?(marker_placement) # checks if space is empty and also checks if there is a typo
         marker_placement.push("X")
         @player_turn = 2
         @game_board.update_grid(marker_placement)
@@ -36,7 +36,7 @@ class Game
       marker_placement.push(gets.chomp.downcase.strip)
       puts "What column would you like to place your \"O\"? left, middle, right?>>"
       marker_placement.push(gets.chomp.downcase.strip)
-      if legal_move?(marker_placement)
+      if @game_board.legal_move?(marker_placement)
         marker_placement.push("O")
         @player_turn = 1
         @game_board.update_grid(marker_placement)
@@ -47,16 +47,6 @@ class Game
       end
     else
       "ERROR ERROR"
-    end
-  end
-
-  def legal_move?(marker_placement) # checks if space is a legal move. Also feeds into convert grid that checks for a typo
-    if @game_board.convert_grid(marker_placement) == false
-      puts "\n\nError, you have mistyped your choice, please choose again.\n\n"
-    elsif @game_board.board[marker_placement[0]][marker_placement[1]] == '_'
-      true
-    else
-      false
     end
   end
 
