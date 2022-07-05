@@ -10,7 +10,6 @@ class Game
     @game_board.clear_board
     @game_board.draw_board
     game_loop
-    
   end
 
   def turn
@@ -108,6 +107,7 @@ class Game
       answer = gets.chomp
     end
   
-    game_loop if answer == "yes"
+    return Game.new if answer == "yes"
+    exit
   end
 end
