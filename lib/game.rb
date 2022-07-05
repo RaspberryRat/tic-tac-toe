@@ -87,15 +87,19 @@ class Game
       end
       Player.reset_player
     end
-  
-    if winner == 1
-      game_over = player_turn == 1 ? "#{player1.name} is the winner! Congratulations." : "#{player2.name} is the winner! Congratulations."
-      puts "\n\n#{game_over}\n\n"
-  
-      new_game
-    elsif tie_game == 1
-      new_game
-    end
+    return game_over if winner == 1
+
+    return tie_game_over if tie_game == 1
+  end
+
+  def game_over
+    winner = @player_turn == 1 ? "#{player1.name} is the winner! Congratulations." : "#{player2.name} is the winner! Congratulations."
+    puts "\n\n#{winner}\n\n"
+  end
+
+  def tie_game_over
+    puts "\n\nGame was a tie, there is no winner"
+    new_game
   end
   
   def new_game
@@ -108,6 +112,7 @@ class Game
     end
   
     return Game.new if answer == "yes"
+
     exit
   end
 end
