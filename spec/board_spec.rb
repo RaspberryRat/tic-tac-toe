@@ -132,5 +132,29 @@ describe Board do
         expect(board.winner?).to be true
       end
     end
+    context 'when there are three X at top and some Os on the board' do
+      before do
+        board.instance_variable_set(:@board, [['X', 'X', 'X'], ['O', '_', 'X'], ['_', 'O', 'O']])
+      end
+      it 'returns true' do 
+        expect(board.winner?).to be true
+      end
+    end
+    context 'when there are not three X or O in a row' do
+      before do
+        board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
+      end
+      it 'does not return true' do
+        expect(board.winner?).to_not be true
+      end
+    end
+    context 'when there are a lot of X and O but not three in a row' do
+      before do
+        board.instance_variable_set(:@board, [['X', 'O', 'O'], ['X', 'X', '_'], ['_', '_', '_']])
+      end
+      it 'does not return true' do
+        expect(board.winner?).to_not be true
+      end
+    end
   end
 end
