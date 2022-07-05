@@ -9,7 +9,6 @@ class Game
     @game_turn = 0
     @game_board.clear_board
     @game_board.draw_board
-    game_loop
   end
 
   def turn
@@ -95,6 +94,7 @@ class Game
   def game_over
     winner = @player_turn == 1 ? "#{player1.name} is the winner! Congratulations." : "#{player2.name} is the winner! Congratulations."
     puts "\n\n#{winner}\n\n"
+    new_game
   end
 
   def tie_game_over
