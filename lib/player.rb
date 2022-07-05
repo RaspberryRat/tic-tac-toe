@@ -2,7 +2,8 @@ class Player < Game
   attr_reader :name
   @@player_count = 0
 
-  def initialize
+  def initialize(game)
+    @game = game
     @@player_count += 1
     @@player_count == 1 ? player_name_count = "Player One" : player_name_count = "Player Two"
     puts "#{player_name_count}, what is your name?>>"

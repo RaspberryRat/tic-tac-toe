@@ -47,4 +47,4 @@ def new_game
   game_loop if answer == "yes"
 end
 
-new_game
+# new_game

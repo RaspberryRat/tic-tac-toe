@@ -2,8 +2,8 @@ class Game
   attr_reader :board, :player1, :player2
 
   def initialize
-    @player1 = Player.new
-    @player2 = Player.new
+    @player1 = Player.new(self)
+    @player2 = Player.new(self)
     clear_board
     draw_board
   end
