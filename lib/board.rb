@@ -1,5 +1,5 @@
 class Board
-  attr_reader :game, :board
+  attr_accessor :board
   def initialize
     @board = nil
   end

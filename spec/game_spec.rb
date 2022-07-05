@@ -1,5 +1,5 @@
 require_relative '../lib/game'
-
+require_relative '../lib/board'
 describe Game do
   subject(:game) { described_class.new }
 
@@ -10,7 +10,7 @@ describe Game do
   describe '#game_over' do
     context 'player 1 is the winner' do
       it 'puts winning statement' do
-        expect(winning_game.new_game).to receive(:new_game)
+        expect(game.new_game).to receive(:new_game)
         winning_game.new_game
       end
     end
