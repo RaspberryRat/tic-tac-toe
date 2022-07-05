@@ -1,15 +1,10 @@
 class Player < Game
   attr_reader :name, :game
-  @@player_count = 0
 
-  def initialize(game)
+  def initialize(game, name)
     @game = game
-    @@player_count += 1
-    @@player_count == 1 ? player_name_count = "Player One" : player_name_count = "Player Two"
-    puts "#{player_name_count}, what is your name?>>"
-    @name = gets.chomp
-    puts "Welcome #{name}"
     @name = name
+    puts "Welcome #{name}"
   end
 
   def self.reset_player

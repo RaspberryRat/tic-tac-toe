@@ -1,9 +1,10 @@
 class Game
-  attr_reader :board, :player1, :player2, :game_board
+  attr_reader :game_board
+  attr_accessor :player1, :player2
 
   def initialize
-    @player1 = Player.new(self)
-    @player2 = Player.new(self)
+    @player1 = nil
+    @player2 = nil
     @player_turn = 1
     @game_board = Board.new(self)
     @game_turn = 0
@@ -68,6 +69,8 @@ class Game
     winner = 0
     tie_game = 0
     player_turn = 1
+    create_players if @player1 == nil
+
     puts player1.name
     puts player2.name
 
@@ -114,5 +117,14 @@ class Game
     return Game.new if answer == "yes"
 
     exit
+  end
+
+  def create_players
+    puts "\n\nPlayer 1, what is your name?>>"
+    name = gets.chomp.strip
+    @player1 = Player.new(self, name)
+    puts "\n\nPlayer 2, what is your name?>>"
+    name = gets.chomp.strip
+    @player2 = Player.new(self, name)
   end
 end
