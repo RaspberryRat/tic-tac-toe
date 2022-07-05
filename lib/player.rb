@@ -1,5 +1,5 @@
 class Player < Game
-  attr_reader :name
+  attr_reader :name, :game
   @@player_count = 0
 
   def initialize(game)
