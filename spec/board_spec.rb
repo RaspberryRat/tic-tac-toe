@@ -158,23 +158,22 @@ describe Board do
     end
   end
   describe '#update_grid' do
-    context 'when X is added to top left '
-    before do
-      board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
-      board.instance_variable_set(:@game_turn, 1)
-      
+    context 'when X is added to top left ' do
+      before do
+        board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
+        board.instance_variable_set(:@game_turn, 1)
+      end
+      it 'updates board[0][0] to X' do
+        expect { board.update_grid([0, 0, 'X']) }.to change { board.board[0][0] }.to('X')
+      end
     end
-    it 'updates board[0][0] to X' do
-      expect { board.update_grid([0, 0, 'X']) }.to change { board.board[0][0] }.to('X')
-    end
-    context 'when O is added to to middle '
-    before do
-      board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
-      board.instance_variable_set(:@game_turn, 1)
-      
-    end
-    it 'updates board[0][0] to X' do
-      expect { board.update_grid([1, 1, 'O']) }.to change { board.board[1][1] }.to('O')
+    context 'when O is added to to middle ' do
+      before do
+        board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
+      end
+      it 'updates board[0][0] to X' do
+        expect { board.update_grid([1, 1, 'O']) }.to change { board.board[1][1] }.to('O')
+      end
     end
   end
 

@@ -6,8 +6,6 @@ class Board
 
   def clear_board
     @board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
-    @game_turn = 0
-    @player_turn = 1
   end
 
   def draw_board
@@ -37,7 +35,6 @@ class Board
 
   def update_grid(marker_placement) # updates the game board with the player chosen square
     @board[marker_placement[0]][marker_placement[1]] = marker_placement[2]
-    @game_turn += 1
     draw_board
   end
 

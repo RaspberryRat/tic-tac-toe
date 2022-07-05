@@ -13,6 +13,7 @@ class Game
   end
 
   def turn
+    @game_turn += 1
     marker_placement = []
     if @player_turn == 1
       puts "\nIt is #{player1.name}'s turn...\n"
