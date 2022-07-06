@@ -48,7 +48,6 @@ describe Game do
       before do
         game.instance_variable_set(:@game_turn, 1)
         game.instance_variable_set(:@player_turn, 0)
-
       end
       it '@game_turn should advance to 2' do
         expect { game.turn }.to change {game.game_turn }.to(2)
