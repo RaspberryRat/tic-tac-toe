@@ -27,4 +27,35 @@ describe Game do
       end
     end
   end
+  describe '#create_players' do
+    context 'when no players, create @player1 and @player2 instance variable' do
+      before do
+       game.instance_variable_set(:@player1, nil)
+       game.instance_variable_set(:@player2, nil)
+      end
+      it '@player1 will not be nil' do
+        game.create_players
+        expect(game.player1).to_not be_nil
+      end
+      it '@player2 will not be nil' do
+        game.create_players
+        expect(game.player2).to_not be_nil
+      end
+    end
+  end
+  describe '#turn' do
+    context 'when turn is called expect @game_turn to advance' do
+      before do
+        game.instance_variable_set(:@game_turn, 1)
+        game.instance_variable_set(:@player_turn, 0)
+
+      end
+      it '@game_turn should advance to 2' do
+        expect { game.turn }.to change {game.game_turn }.to(2)
+        game.turn
+      end
+    end
+  end
+
+        
 end
