@@ -67,7 +67,7 @@ class Board
     if convert_grid(marker_placement) == false
       puts '\n\nError, you have mistyped your choice, please choose again.\n\n'
     else
-      true if board_empty?(marker_placement)
+      board_empty?(marker_placement)
     end
   end
 

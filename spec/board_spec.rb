@@ -220,5 +220,15 @@ describe Board do
         board.legal_move?([0, 0])
       end
     end
+    context 'when a space is occupied' do
+      before do
+        allow(board).to receive(:convert_grid).and_return(true)
+        allow(board).to receive(:board_empty?).and_return(false)
+      end
+      it 'returns false for invalid move' do
+        expect(board.legal_move?([0, 0])).to be false
+        board.legal_move?([0, 0])
+      end
+    end
   end
 end
