@@ -41,7 +41,7 @@ class Game
         @player_turn = 1
         @game_board.update_grid(marker_placement)
       else
-        puts "\n\nThat is not a legal move, please choose a different location:\n\n"
+        puts "***\n\nThat is not a legal move, please choose a different location:\n\n***"
         @game_board.draw_board
         turn
       end

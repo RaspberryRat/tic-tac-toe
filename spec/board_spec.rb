@@ -203,28 +203,21 @@ describe Board do
   describe '#legal_move?' do
     context 'when a space is occupied' do
       before do
-        marker_placement = ([0, 0])
-        allow(board.legal_move?(marker_placement)).to receive(:convert_grid).and_return(false)
+        allow(board).to receive(:convert_grid).and_return(false)
       end
       it 'returns error message for illegal move' do
         expect(board).to receive(:puts).with('\n\nError, you have mistyped your choice, please choose again.\n\n')
-        board.legal_move?([0,0])
+        board.legal_move?([0, 0])
       end
     end
     context 'when a space is empty' do
       before do
-        marker_placement = ([0, 0])
-        # allow(board.legal_move?(marker_placement)).to receive(:convert_grid).and_return(true)
-        board.instance_variable_set(:@board, [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']])
-        # allow(board.legal_move?(marker_placement)).to receive(:@board).and_return('_')
-        board.board[0][0] = '_'
+        allow(board).to receive(:convert_grid).and_return(true)
+        allow(board).to receive(:board_empty?).and_return(true)
       end
       it 'returns true for a legal move' do
-        board.board[0][0] = '_'
-        expect(board.legal_move?([0,0])).to be true
-        board.legal_move?([0,0])
-
-
+        expect(board.legal_move?([0, 0])).to be true
+        board.legal_move?([0, 0])
       end
     end
   end

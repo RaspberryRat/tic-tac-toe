@@ -62,13 +62,18 @@ class Board
     end
   end
 
-  def legal_move?(marker_placement) # checks if space is a legal move. Also feeds into convert grid that checks for a typo
+  # checks if space empty. Also feeds into convert grid that checks for a typo
+  def legal_move?(marker_placement)
     if convert_grid(marker_placement) == false
       puts '\n\nError, you have mistyped your choice, please choose again.\n\n'
-    elsif @board[marker_placement[0]][marker_placement[1]] == '_'
-      true
     else
-      false
+      true if board_empty?(marker_placement)
     end
+  end
+
+  def board_empty?(location)
+    return true if @board[location[0]][location[1]] == '_'
+
+    false
   end
 end
